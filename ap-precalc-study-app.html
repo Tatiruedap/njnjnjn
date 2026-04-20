@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AP Precalculus — Final Prep Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0f0e11;
+    --bg2: #161519;
+    --bg3: #1d1b21;
+    --bg4: #242229;
+    --border: rgba(255,255,255,0.07);
+    --border-hover: rgba(255,255,255,0.14);
+    --text: #f0eef5;
+    --text2: #a09ab0;
+    --text3: #6b6478;
+    --accent: #8b7cf8;
+    --accent-dim: rgba(139,124,248,0.12);
+    --accent-glow: rgba(139,124,248,0.25);
+    --green: #52c98b;
+    --green-dim: rgba(82,201,139,0.12);
+    --teal: #38b9b9;
+    --teal-dim: rgba(56,185,185,0.12);
+    --amber: #f0a842;
+    --amber-dim: rgba(240,168,66,0.12);
+    --coral: #f07060;
+    --coral-dim: rgba(240,112,96,0.12);
+    --blue: #5b9cf6;
+    --blue-dim: rgba(91,156,246,0.12);
+    --r: 12px;
+    --r-sm: 8px;
+  }
+
+  html { font-size: 16px; }
+
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Subtle grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(139,124,248,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(139,124,248,0.03) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Radial glow top-center */
+  body::after {
+    content: '';
+    position: fixed;
+    top: -180px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 700px;
+    height: 500px;
+    background: radial-gradient(ellipse, rgba(139,124,248,0.08) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .app {
+    position: relative;
+    z-index: 1;
+    max-width: 740px;
+    margin: 0 auto;
+    padding: 3rem 1.25rem 5rem;
+  }
+
+  /* ── Header ── */
+  .header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+    background: var(--accent-dim);
+    border: 1px solid rgba(139,124,248,0.2);
+    padding: 4px 12px;
+    border-radius: 99px;
+  }
+
+  .eyebrow::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: .4; transform: scale(.7); }
+  }
+
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(26px, 5vw, 38px);
+    font-weight: 400;
+    color: var(--text);
+    letter-spacing: -.01em;
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .exam-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 13px;
+    color: var(--coral);
+    background: var(--coral-dim);
+    border: 1px solid rgba(240,112,96,0.2);
+    padding: 5px 14px;
+    border-radius: 99px;
+    font-weight: 500;
+  }
+
+  /* ── Top Bar ── */
+  .top-bar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 1.5rem;
+    padding: 14px 18px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+  }
+
+  .progress-wrap { flex: 1; }
+
+  .progress-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+  }
+
+  .progress-meta-label {
+    font-size: 12px;
+    color: var(--text3);
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .progress-meta-count {
+    font-size: 13px;
+    color: var(--text2);
+    font-weight: 500;
+  }
+
+  .progress-meta-count span {
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .progress-track {
+    height: 5px;
+    background: var(--bg4);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), #b49dff);
+    border-radius: 99px;
+    transition: width .6s cubic-bezier(.4,0,.2,1);
+    width: 0%;
+  }
+
+  .reset-btn {
+    background: transparent;
+    border: 1px solid var(--border-hover);
+    color: var(--text3);
+    font-size: 12px;
+    font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+    padding: 7px 14px;
+    border-radius: var(--r-sm);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all .15s;
+    letter-spacing: .03em;
+  }
+
+  .reset-btn:hover {
+    color: var(--text);
+    border-color: rgba(255,255,255,0.25);
+    background: var(--bg3);
+  }
+
+  /* ── Week Nav ── */
+  .week-nav {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 1.75rem;
+    flex-wrap: wrap;
+  }
+
+  .wbtn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 8px 18px;
+    border-radius: var(--r-sm);
+    border: 1px solid var(--border);
+    background: var(--bg2);
+    color: var(--text3);
+    cursor: pointer;
+    transition: all .15s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .wbtn:hover {
+    color: var(--text2);
+    border-color: var(--border-hover);
+    background: var(--bg3);
+  }
+
+  .wbtn.active {
+    background: var(--accent-dim);
+    border-color: rgba(139,124,248,0.35);
+    color: #c5bcff;
+  }
+
+  /* ── Week Sections ── */
+  .week-section { display: none; }
+  .week-section.active {
+    display: block;
+    animation: fadeUp .24s cubic-bezier(.4,0,.2,1);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin-bottom: 1rem;
+  }
+
+  .section-label::before, .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── Cards ── */
+  .cards { display: flex; flex-direction: column; gap: 10px; }
+
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 1.1rem 1.25rem;
+    transition: border-color .2s, background .2s, opacity .3s, transform .2s;
+    cursor: default;
+  }
+
+  .card:hover {
+    border-color: var(--border-hover);
+    background: var(--bg3);
+  }
+
+  .card.done {
+    opacity: .45;
+  }
+
+  .card.exam-card {
+    border-color: rgba(240,112,96,0.25);
+    background: rgba(240,112,96,0.04);
+  }
+
+  .card.exam-card:hover {
+    border-color: rgba(240,112,96,0.4);
+  }
+
+  .card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 7px;
+  }
+
+  .card-meta { flex: 1; }
+
+  .card-day {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text3);
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .card-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .card-desc {
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.6;
+    margin-bottom: .85rem;
+  }
+
+  .badge {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 99px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 2px;
+    border: 1px solid transparent;
+    letter-spacing: .03em;
+  }
+
+  .badge-video  { background: var(--blue-dim);  color: #88b8ff; border-color: rgba(91,156,246,.2); }
+  .badge-sheet  { background: var(--accent-dim); color: #c5bcff; border-color: rgba(139,124,248,.2); }
+  .badge-mcq    { background: var(--green-dim);  color: #7de0aa; border-color: rgba(82,201,139,.2); }
+  .badge-frq    { background: var(--teal-dim);   color: #6dd4d4; border-color: rgba(56,185,185,.2); }
+  .badge-review { background: var(--amber-dim);  color: #f5c070; border-color: rgba(240,168,66,.2); }
+  .badge-exam   { background: var(--coral-dim);  color: #f5957f; border-color: rgba(240,112,96,.2); }
+
+  /* ── Checkbox Row ── */
+  .check-row {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    cursor: pointer;
+    width: fit-content;
+    user-select: none;
+  }
+
+  .check-box {
+    width: 19px;
+    height: 19px;
+    border-radius: 5px;
+    border: 1px solid var(--border-hover);
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background .2s, border-color .2s, transform .15s;
+  }
+
+  .check-row:hover .check-box {
+    border-color: var(--accent);
+  }
+
+  .check-box.checked {
+    background: var(--accent);
+    border-color: var(--accent);
+    transform: scale(1.05);
+  }
+
+  .check-icon { display: none; }
+  .check-box.checked .check-icon { display: block; }
+
+  .check-label {
+    font-size: 12px;
+    color: var(--text3);
+    transition: color .2s;
+  }
+
+  .check-row:hover .check-label { color: var(--text2); }
+  .card.done .check-label { color: var(--accent); }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    margin-top: 3rem;
+    font-size: 12px;
+    color: var(--text3);
+    letter-spacing: .04em;
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <header class="header">
+    <div class="eyebrow">Study Tracker</div>
+    <h1>AP <em>Precalculus</em><br>Final Prep</h1>
+    <div style="margin-top:14px;">
+      <span class="exam-tag">
+        <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><rect x="1" y="1.5" width="12" height="11" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M4.5 1v1.5M9.5 1v1.5M1 5.5h12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        Exam Day · May 12
+      </span>
+    </div>
+  </header>
+
+  <div class="top-bar">
+    <div class="progress-wrap">
+      <div class="progress-meta">
+        <span class="progress-meta-label">Progress</span>
+        <span class="progress-meta-count" id="pct-label"><span id="done-count">0</span> / 17 tasks</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="prog-fill"></div>
+      </div>
+    </div>
+    <button class="reset-btn" onclick="resetAll()">Reset all</button>
+  </div>
+
+  <nav class="week-nav">
+    <button class="wbtn active" onclick="showWeek('w1',this)">Week 1</button>
+    <button class="wbtn" onclick="showWeek('w2',this)">Week 2</button>
+    <button class="wbtn" onclick="showWeek('w3',this)">Week 3</button>
+    <button class="wbtn" onclick="showWeek('wf',this)">Final Week</button>
+  </nav>
+
+  <!-- WEEK 1 -->
+  <section id="w1" class="week-section active">
+    <div class="section-label">Week 1 &mdash; Unit 1 &middot; Polynomial &amp; Rational Functions</div>
+    <div class="cards">
+
+      <div class="card" id="card-w1-mon">
+        <div class="card-top">
+          <div class="card-meta">
+            <div class="card-day">Monday &middot; April 20</div>
+            <div class="card-title">Unit 1 Summary Video</div>
+          </div>
+          <span class="badge badge-video">Video</span>
+        </div>
+        <div class="card-desc">Watch Michael Porinchak's full Unit 1 review video.</div>
+        <label class="check-row" onclick="toggle('w1-mon')">
+          <div class="check-box" id="cb-w1-mon">
+            <svg class="check-icon" width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 5.5l2.8 2.8 5-5.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="check-label">Mark as completed</span>
+        </label>
+      </div>
+
+      <div class="card" id="card-w1-tue">
+        <div class="card-top">
+          <div class="card-meta">
+            <div class="card-day">Tuesday &middot; April 21</div>
+            <div class="card-title">Create Cheat Sheet</div>
+          </div>
+          <span class="badge badge-sheet">Cheat Sheet</span>
+        </div>
+        <div class="card-desc">Summarize key concepts: polynomial behavior, rational functions, asymptotes, holes, transformations.</div>
+        <label class="check-row" onclick="toggle('w1-tue')">
+          <div class="check-box" id="cb-w1-tue">
+            <svg class="check-icon" width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 5.5l2.8 2.8 5-5.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="check-label">Mark as completed</span>
+        </label>
+      </div>
+
+      <div class="card" id="card-w1-wed">
+        <div class="card-top">
+          <div class="card-meta">
+            <div class="card-day">Wednesday &middot; April 22</div>
+            <div class="card-title">MCQ Practice</div>
+          </div>
+          <span class="badge badge-mcq">MCQ</span>
+        </div>
+        <div class="card-desc">Complete multiple-choice practice questions for Unit 1.</div>
+        <label class="check-row" onclick="toggle('w1-wed')">
+          <div class="check-box" id="cb-w1-wed">
+            <svg class="check-icon" width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 5.5l2.8 2.8 5-5.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="check-label">Mark as completed</span>
+        </label>
+      </div>
+
+      <div class="card" id="card-w1-thu">
+        <div class="card-top">
+          <div class="card-meta">
+            <div class="card-day">Thursday &middot; April 23</div>
+            <div class="card-title">FRQ Video</div>
+          </div>
+          <span class="badge badge-frq">FRQ</span>
+        </div>
+        <div class="card-desc">Watch and analyze a free response question for Unit 1.</div>
+        <label class="check-row" onclick="toggle('w1-thu')">
+          <div class="check-box" id="cb-w1-thu">
+            <svg class="check-icon" width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 5.5l2.8 2.8 5-5.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="check-label">Mark as completed</span>
+        </label>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- WEEK 2 -->
+  <section id="w2" class="week-section">
+    <div class="section-label">Week 2 &mdash; Unit 2 &middot; Exponential &amp; Logarithmic</div>
+    <div class="cards">
+
+      <div class="card" id="card-w2-mon">
+        <div class="card-top">
+          <div class="card-meta">
+            <div class="card-day">Monday &middot; April 27</div>
+            <div class="card-title">Unit 2 Summary Video</div>
+          </div>
+          <span class="badge badge-video">Video</span>
+        </div>
+        <div class="card-desc">Watch full exponential and logarithmic review.</div>
+        <label class="check-row" onclick="toggle('w2-mon')">
+          <div class="check-box" id="cb-w2-mon">
+            <svg class="check-icon" width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 5.5l2.8 2.8 5-5.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="check-label">Mark as completed</span>
+        </label>
+      </div>
+
+      <div class="card" id="card-w2-tue">
+        <div class="card-top">
+          <div class="card-meta">
+            <div class="card-day">Tuesday &middot; April 28</div>
+            <div class="card-title">Create Cheat Sheet</div>
+          </div>
+          <span class="badge badge-sheet">Cheat Sheet</span>
+        </div>
+        <div class="card-desc">Include exponent rules, log properties, inverses, and modeling.</div>
+        <label class="check-row" onclick="toggle('w2-tue')">
+          <div class="check-box" id="cb-w2-tue">
+            <svg class="check-icon" width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 5.5l2.8 2.8 5-5.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="check-label">Mark as completed</span>
+        </label>
+      </div>
+
+      <div class="card" id="card-w2-wed">
+        <div class="card-top">
+          <div class="card-meta">
+            <div class="card-day">Wednesday &middot; April 29</div>
+            <div class="card-title">MCQ Practice</div>
+          </div>
+          <span class="badge badge-mcq">MCQ</span>
+        </div>
+        <div class="card-desc">Practice multiple choice questions.</div>
+        <label class="check-row" onclick="toggle('w2-wed')">
+          <div class="check-box" id="cb-w2-wed">
+            <svg class="check-icon" width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 5.5l2.8 2.8 5-5.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="check-label">Mark as completed</span>
+        </label>
+      </div>
+
+      <div class="card" id="card-w2-thu">
+        <div class="card-top">
+          <div class="card-meta">
+            <div class="card-day">Thursday &middot; April 30</div>
+            <div class="card-title">FRQ Video</div>
+          </div>
+          <span class="badge badge-frq">FRQ</span>
+        </div>
+        <div class="card-desc">Watch and break down a Unit 2 FRQ.</div>
+        <label class="check-row" onclick="toggle('w2-thu')">
+          <div class="check-box" id="cb-w2-thu">
+            <svg class="check-icon" width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 5.5l2.8 2.8 5-5.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="check-label">Mark as completed</span>
+        </label>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- WEEK 3 -->
+  <section id="w3" class="week-section">
+    <div class="section-label">Week 3 &mdash; Unit 3 &middot; Trigonometry &amp; Polar</div>
+    <div class="cards">
+
+      <div class="card" id="card-w3-mon">
+        <div class="card-top">
+          <div class="card-meta">
+            <div class="card-day">Monday &middot; May 4</div>
+            <div class="card-title">Unit 3 Summary Video</div>
+          </div>
+          <span class="badge badge-video">Video</span>
+        </div>
+        <div class="card-desc">Watch trig and polar functions review.</div>
+        <label class="check-row" onclick="toggle('w3-mon')">
+          <div class="check-box" id="cb-w3-mon">
+            <svg class="check-icon" width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 5.5l2.8 2.8 5-5.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="check-label">Mark as completed</span>
+        </label>
+      </div>
+
+      <div class="card" id="card-w3-tue">
+        <div class="card-top">
+          <div class="card-meta">
+            <div class="card-day">Tuesday &middot; May 5</div>
+            <div class="card-title">Create Cheat Sheet</div>
+          </div>
+          <span class="badge badge-sheet">Cheat Sheet</span>
+        </div>
+        <div class="card-desc">Include unit circle, trig identities, graphs, and transformations.</div>
+        <label class="check-row" onclick="toggle('w3-tue')">
+          <div class="check-box" id="cb-w3-tue">
+            <svg class="check-icon" width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 5.5l2.8 2.8 5-5.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="check-label">Mark as completed</span>
+        </label>
+      </div>
+
+      <div class="card" id="card-w3-wed">
+        <div class="card-top">
+          <div class="card-meta">
+            <div class="card-day">Wednesday &middot; May 6</div>
+            <div class="card-title">MCQ Practice</div>
+          </div>
+          <span class="badge badge-mcq">MCQ</span>
+        </div>
+        <div class="card-desc">Practice trig-based multiple choice questions.</div>
+        <label class="check-row" onclick="toggle('w3-wed')">
+          <div class="check-box" id="cb-w3-wed">
+            <svg class="check-icon" width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 5.5l2.8 2.8 5-5.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="check-label">Mark as completed</span>
+        </label>
+      </div>
+
+      <div class="card" id="card-w3-thu">
+        <div class="card-top">
+          <div class="card-meta">
+            <div class="card-day">Thursday &middot; May 7</div>
+            <div class="card-title">FRQ Video</div>
+          </div>
+          <span class="badge badge-frq">FRQ</span>
+        </div>
+        <div class="card-desc">Watch a trig FRQ walkthrough.</div>
+        <label class="check-row" onclick="toggle('w3-thu')">
+          <div class="check-box" id="cb-w3-thu">
+            <svg class="check-icon" width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 5.5l2.8 2.8 5-5.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="check-label">Mark as completed</span>
+        </label>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FINAL WEEK -->
+  <section id="wf" class="week-section">
+    <div class="section-label">Final Week &mdash; FRQ Intensive</div>
+    <div class="cards">
+
+      <div class="card" id="card-wf-fri">
+        <div class="card-top">
+          <div class="card-meta">
+            <div class="card-day">Friday &middot; May 8</div>
+            <div class="card-title">FRQ Practice #1 &amp; #2</div>
+          </div>
+          <span class="badge badge-frq">FRQ</span>
+        </div>
+        <div class="card-desc">Watch and solve two FRQs.</div>
+        <label class="check-row" onclick="toggle('wf-fri')">
+          <div class="check-box" id="cb-wf-fri">
+            <svg class="check-icon" width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 5.5l2.8 2.8 5-5.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="check-label">Mark as completed</span>
+        </label>
+      </div>
+
+      <div class="card" id="card-wf-sat">
+        <div class="card-top">
+          <div class="card-meta">
+            <div class="card-day">Saturday &middot; May 9</div>
+            <div class="card-title">FRQ Practice #3 &amp; #4</div>
+          </div>
+          <span class="badge badge-frq">FRQ</span>
+        </div>
+        <div class="card-desc">Watch and solve two more FRQs.</div>
+        <label class="check-row" onclick="toggle('wf-sat')">
+          <div class="check-box" id="cb-wf-sat">
+            <svg class="check-icon" width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 5.5l2.8 2.8 5-5.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="check-label">Mark as completed</span>
+        </label>
+      </div>
+
+      <div class="card" id="card-wf-sun">
+        <div class="card-top">
+          <div class="card-meta">
+            <div class="card-day">Sunday &middot; May 10</div>
+            <div class="card-title">Cheat Sheet Review</div>
+          </div>
+          <span class="badge badge-review">Review</span>
+        </div>
+        <div class="card-desc">Review all notes from previous weeks.</div>
+        <label class="check-row" onclick="toggle('wf-sun')">
+          <div class="check-box" id="cb-wf-sun">
+            <svg class="check-icon" width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 5.5l2.8 2.8 5-5.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="check-label">Mark as completed</span>
+        </label>
+      </div>
+
+      <div class="card" id="card-wf-mon">
+        <div class="card-top">
+          <div class="card-meta">
+            <div class="card-day">Monday &middot; May 11</div>
+            <div class="card-title">Light Review</div>
+          </div>
+          <span class="badge badge-review">Review</span>
+        </div>
+        <div class="card-desc">Quick recap and mental preparation.</div>
+        <label class="check-row" onclick="toggle('wf-mon')">
+          <div class="check-box" id="cb-wf-mon">
+            <svg class="check-icon" width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 5.5l2.8 2.8 5-5.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="check-label">Mark as completed</span>
+        </label>
+      </div>
+
+      <div class="card exam-card" id="card-wf-tue">
+        <div class="card-top">
+          <div class="card-meta">
+            <div class="card-day">Tuesday &middot; May 12</div>
+            <div class="card-title">AP Precalculus Exam</div>
+          </div>
+          <span class="badge badge-exam">Exam Day</span>
+        </div>
+        <div class="card-desc">Stay calm and execute. You've prepared for this.</div>
+        <label class="check-row" onclick="toggle('wf-tue')">
+          <div class="check-box" id="cb-wf-tue">
+            <svg class="check-icon" width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 5.5l2.8 2.8 5-5.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="check-label">Mark as completed</span>
+        </label>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="footer">Progress saves automatically &middot; AP Precalculus &middot; May 2026</div>
+
+</div>
+
+<script>
+const KEYS = [
+  'w1-mon','w1-tue','w1-wed','w1-thu',
+  'w2-mon','w2-tue','w2-wed','w2-thu',
+  'w3-mon','w3-tue','w3-wed','w3-thu',
+  'wf-fri','wf-sat','wf-sun','wf-mon','wf-tue'
+];
+const TOTAL = KEYS.length;
+const NS = 'appc2_';
+
+function applyDone(k, done) {
+  const card = document.getElementById('card-' + k);
+  const cb   = document.getElementById('cb-' + k);
+  if (!card || !cb) return;
+  done ? card.classList.add('done')    : card.classList.remove('done');
+  done ? cb.classList.add('checked')   : cb.classList.remove('checked');
+}
+
+function updateProgress() {
+  const done = KEYS.filter(k => localStorage.getItem(NS + k) === '1').length;
+  const pct  = Math.round(done / TOTAL * 100);
+  document.getElementById('prog-fill').style.width = pct + '%';
+  document.getElementById('done-count').textContent = done;
+}
+
+function toggle(k) {
+  const next = localStorage.getItem(NS + k) !== '1';
+  localStorage.setItem(NS + k, next ? '1' : '0');
+  applyDone(k, next);
+  updateProgress();
+}
+
+function resetAll() {
+  KEYS.forEach(k => { localStorage.setItem(NS + k, '0'); applyDone(k, false); });
+  updateProgress();
+}
+
+function showWeek(id, btn) {
+  document.querySelectorAll('.week-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.wbtn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+(function init() {
+  KEYS.forEach(k => {
+    if (localStorage.getItem(NS + k) === '1') applyDone(k, true);
+  });
+  updateProgress();
+})();
+</script>
+</body>
+</html>
